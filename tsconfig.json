@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "preserveConstEnums": true
+    },
+    "compileOnSave": true,
+    "buildOnSave": false,
+    "exclude": ["node_modules", "typings", "static/js"],
+    "atom": {
+        "rewriteTsconfig": false
+    }
+}

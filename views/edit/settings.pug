@@ -1,0 +1,40 @@
+extends ../../../../views/include/layout.pug
+
+block body
+    h2 Add Page
+    div
+        input(type="text", placeholder="Page Name")#new-page-name
+        button#new-page-submit Add
+    h2 Pages
+    div#pages
+        each settings, name in pages
+            div.page-section
+                h3 #{name}
+                div
+                    input(type="text", data-page=name, data-action="add-setting", data-param="name", placeholder="Name")
+                    select(data-page=name, data-action="add-setting", data-param="type")
+                        option(value="boolean") Boolean (True / False)
+                        option(value="number") Number
+                        option(value="string") Other (Text)
+                    button(data-page=name, data-action="add-setting") Add Setting
+                table
+                    thead
+                        tr
+                            th Name
+                            th Value
+                    tbody(data-page=name).settings
+                        each setting in settings
+                            tr
+                                td #{setting.name}
+                                form(action="post-settings", method="POST")
+                                    td
+                                        input(type="hidden", name="name", value=setting.name)
+                                        input(type="hidden", name="page", value=name)
+                                        input(type="hidden", name="type", value=setting.type)
+                                        if setting.type == "boolean"
+                                            - var isChecked = setting.value == "1" ? {"checked": "checked"} : {}
+                                            input(type="checkbox", name="value")&attributes(isChecked)
+                                        - else
+                                            input(type=setting.type == "number" ? "number" : "text", name="value", value=setting.value)
+                                    td
+                                        input(type="submit", value="Update")
