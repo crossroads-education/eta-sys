@@ -23,11 +23,13 @@ export module settings {
                 "page": page
             };
             $("[data-action='add-setting'][data-page='" + page + "']").each(function() {
+                if (this.tagName.toLowerCase() == "button") {
+                    return;
+                }
                 params[this.getAttribute("data-param")] = this.value;
             });
-            console.log(JSON.stringify(params));
-            $.post("post-settings", params, function() {
-                // location.reload();
+            $.post("../post/settings", params, function(data) {
+                location.reload();
             });
         });
     });

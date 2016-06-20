@@ -26,11 +26,12 @@ block body
                         each setting in settings
                             tr
                                 td #{setting.name}
-                                form(action="post-settings", method="POST")
+                                form(action=baseurl + "post/settings", method="POST")
                                     td
                                         input(type="hidden", name="name", value=setting.name)
                                         input(type="hidden", name="page", value=name)
                                         input(type="hidden", name="type", value=setting.type)
+                                        input(type="hidden", name="shouldRedirect", value="yes")
                                         if setting.type == "boolean"
                                             - var isChecked = setting.value == "1" ? {"checked": "checked"} : {}
                                             input(type="checkbox", name="value")&attributes(isChecked)
