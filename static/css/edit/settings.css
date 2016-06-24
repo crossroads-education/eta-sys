@@ -1,0 +1,5 @@
+h3.page-title {
+    cursor: pointer;
+    border: 1px black solid;
+    border-radius: 10px;
+}

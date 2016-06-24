@@ -9,33 +9,34 @@ block body
     div#pages
         each settings, name in pages
             div.page-section
-                h3 #{name}
+                h3.page-title #{name}
                 div
-                    input(type="text", data-page=name, data-action="add-setting", data-param="name", placeholder="Name")
-                    select(data-page=name, data-action="add-setting", data-param="type")
-                        option(value="boolean") Boolean (True / False)
-                        option(value="number") Number
-                        option(value="string") Other (Text)
-                    button(data-page=name, data-action="add-setting") Add Setting
-                table
-                    thead
-                        tr
-                            th Name
-                            th Value
-                    tbody(data-page=name).settings
-                        each setting in settings
+                    div.new-setting-form
+                        input(type="text", data-page=name, data-action="add-setting", data-param="name", placeholder="Name")
+                        select(data-page=name, data-action="add-setting", data-param="type")
+                            option(value="boolean") Boolean (True / False)
+                            option(value="number") Number
+                            option(value="string") Other (Text)
+                        button(data-page=name, data-action="add-setting") Add Setting
+                    table.table
+                        thead
                             tr
-                                td #{setting.name}
-                                form(action=baseurl + "post/settings", method="POST")
-                                    td
-                                        input(type="hidden", name="name", value=setting.name)
-                                        input(type="hidden", name="page", value=name)
-                                        input(type="hidden", name="type", value=setting.type)
-                                        input(type="hidden", name="shouldRedirect", value="yes")
-                                        if setting.type == "boolean"
-                                            - var isChecked = setting.value == "1" ? {"checked": "checked"} : {}
-                                            input(type="checkbox", name="value")&attributes(isChecked)
-                                        - else
-                                            input(type=setting.type == "number" ? "number" : "text", name="value", value=setting.value)
-                                    td
-                                        input(type="submit", value="Update")
+                                th Name
+                                th Value
+                        tbody(data-page=name).settings
+                            each setting in settings
+                                tr
+                                    td #{setting.name}
+                                    form(action=baseurl + "post/settings", method="POST")
+                                        td
+                                            input(type="hidden", name="name", value=setting.name)
+                                            input(type="hidden", name="page", value=name)
+                                            input(type="hidden", name="type", value=setting.type)
+                                            input(type="hidden", name="shouldRedirect", value="yes")
+                                            if setting.type == "boolean"
+                                                - var isChecked = setting.value == "1" ? {"checked": "checked"} : {}
+                                                input(type="checkbox", name="value")&attributes(isChecked)
+                                            - else
+                                                input(type=setting.type == "number" ? "number" : "text", name="value", value=setting.value)
+                                        td
+                                            input(type="submit", value="Update")
