@@ -31,7 +31,7 @@ export module settings {
             params[this.getAttribute("data-param")] = this.value;
         });
         console.log(params);
-        $.post("../post/settings", params, function(data) {
+        $.post("/post/settings", params, function(data) {
             // location.reload();
         });
     }
