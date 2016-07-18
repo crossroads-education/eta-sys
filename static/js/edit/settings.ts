@@ -58,6 +58,7 @@ export module settings {
     }
 
     $(document).ready(function() {
+        $("link[rel='stylesheet'][href*='jquery-ui.min.css']").prop("href", "");
         $("#new-page-name").on("keydown", getInputSubmitHandler(onNewPage));
         $("#new-page-submit").on("click", onNewPage);
 

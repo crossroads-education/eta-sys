@@ -36,7 +36,9 @@ block body
                                             if setting.type == "boolean"
                                                 - var isChecked = setting.value == "1" ? {"checked": "checked"} : {}
                                                 input(type="checkbox", name="value")&attributes(isChecked)
-                                            - else
-                                                input(type=setting.type == "number" ? "number" : "text", name="value", value=setting.value)
+                                            else if setting.type == "number"
+                                                input(type="number", name="value", value=setting.value)
+                                            else if setting.type == "string"
+                                                textarea(name="value") !{setting.value}
                                         td
                                             input(type="submit", value="Update")
