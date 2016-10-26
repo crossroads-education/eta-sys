@@ -8,6 +8,7 @@ export abstract class EtaTable {
         this.oracleConn = conn;
     }
 
+    public abstract getDuplicateUpdateSql(): string;
     public abstract shouldIgnoreDuplicates(): boolean;
     public abstract requiresTerm(): boolean;
     public abstract fetch(term: string, callback: (err: Error, rows?: any[]) => void): void;

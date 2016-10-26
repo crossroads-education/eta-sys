@@ -32,6 +32,10 @@ export class Model implements eta.Model {
             }
             let result: eta.SqlValueResult = eta.sql.getInsertMany(rows, true);
             sql += "INTO `" + tableName + "` " + result.columns + " VALUES " + result.sql;
+            let duplicateUpdateSql: string = tableHandler.getDuplicateUpdateSql();
+            if (duplicateUpdateSql != "") {
+                sql += " ON DUPLICATE KEY UPDATE " + duplicateUpdateSql;
+            }
             eta.db.query(sql, result.params, (err: eta.DBError, rows: any[]) => {
                 if (err) {
                     eta.logger.dbError(err);

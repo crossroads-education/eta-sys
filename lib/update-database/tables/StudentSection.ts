@@ -6,6 +6,10 @@ import { EtaTable } from "../EtaTable";
 
 export default class StudentSection extends EtaTable {
 
+    public getDuplicateUpdateSql(): string {
+        return "status = VALUES(status)";
+    }
+
     public shouldIgnoreDuplicates(): boolean {
         return true;
     }

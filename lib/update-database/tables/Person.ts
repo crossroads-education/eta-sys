@@ -6,6 +6,14 @@ import { EtaTable } from "../EtaTable";
 
 export default class Person extends EtaTable {
 
+    public getDuplicateUpdateSql(): string {
+        return `
+            username = VALUES(username),
+            email = VALUES(email),
+            firstName = VALUES(firstName),
+            lastName = VALUES(lastName)`;
+    }
+
     public shouldIgnoreDuplicates(): boolean {
         return true;
     }

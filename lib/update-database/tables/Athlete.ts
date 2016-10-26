@@ -6,6 +6,10 @@ import { EtaTable } from "../EtaTable";
 
 export default class Athlete extends EtaTable {
 
+    public getDuplicateUpdateSql(): string {
+        return "";
+    }
+
     public shouldIgnoreDuplicates(): boolean {
         return true;
     }

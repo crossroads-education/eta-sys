@@ -6,6 +6,21 @@ import { EtaTable } from "../EtaTable";
 
 export default class Section extends EtaTable {
 
+    public getDuplicateUpdateSql(): string {
+        return `
+            active = VALUES(active),
+            room = VALUES(room),
+            meetingType = VALUES(meetingType),
+            maximumEnrolled = VALUES(maximumEnrolled),
+            totalEnrolled = VALUES(totalEnrolled),
+            creditHours = VALUES(creditHours),
+            days = VALUES(days),
+            start = VALUES(start),
+            \`end\` = VALUES(\`end\`),
+            professor = VALUES(professor)
+        `;
+    }
+
     public shouldIgnoreDuplicates(): boolean {
         return true;
     }
