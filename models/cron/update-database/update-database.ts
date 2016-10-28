@@ -47,7 +47,12 @@ export class Model implements eta.Model {
     }
 
     private updateDatabase(callback: () => void): void {
-        oracledb.getConnection(eta.config.oracle.db, (err: Error, db: oracledb.IConnection) => {
+        let dbConfig: any = eta.config.oracle.db.day;
+        let now: Date = new Date();
+        if (eta.config.oracle.db.useNight && (now.getHours() >= 22 || now.getHours() <= 5)) {
+            dbConfig = eta.config.oracle.db.night;
+        }
+        oracledb.getConnection(dbConfig, (err: Error, db: oracledb.IConnection) => {
             if (err) {
                 eta.logger.error("Could not connect to Oracle DB: " + err.message);
                 callback();
