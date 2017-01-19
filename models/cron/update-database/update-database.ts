@@ -9,7 +9,7 @@ import { EtaTable } from "../../../lib/update-database/EtaTable";
 
 export class Model implements eta.Model {
 
-    private processTable(db: oracledb.IConnection, file: string): void {
+    private processTable(db: oracledb.IConnection, file: string, useTerm?: string): void {
         let tableHandler: EtaTable, tableName: string;
         try {
             let handlerModule: any = require(file);
@@ -20,6 +20,9 @@ export class Model implements eta.Model {
             return;
         }
         let term: string = eta.term.getCurrent().term;
+        if (useTerm) {
+            term = useTerm;
+        }
         eta.logger.trace("Fetching " + tableName + "...");
         tableHandler.fetch(term, (err: Error, rows: any[]) => {
             if (err) {
@@ -46,7 +49,7 @@ export class Model implements eta.Model {
         });
     }
 
-    private updateDatabase(callback: () => void): void {
+    private updateDatabase(callback: () => void, term?: string): void {
         eta.oracle.getConnection((err: Error, db: oracledb.IConnection) => {
             if (err) {
                 eta.logger.error("Could not connect to Oracle DB: " + err.message);
@@ -65,7 +68,7 @@ export class Model implements eta.Model {
                         continue;
                     }
                     try {
-                        this.processTable(db, tableDir + files[i]);
+                        this.processTable(db, tableDir + files[i], term);
                     } catch (ex) {
                         eta.logger.warn("Couldn't process: " + files[i] + ": " + ex.toString());
                     }
@@ -84,6 +87,6 @@ export class Model implements eta.Model {
     public render(req: express.Request, res: express.Response, callback: (env: { [key: string]: any }) => void): void {
         this.updateDatabase(() => {
             callback({ "raw": "Success." });
-        });
+        }, req.query.term);
     }
 }
