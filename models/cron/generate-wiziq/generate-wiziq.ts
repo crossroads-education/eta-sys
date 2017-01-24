@@ -12,6 +12,9 @@ export class Model implements eta.Model {
             }
             let todayHours: eta.HoursOfOperation = hours[eta.time.getCurrentDayOfWeek()];
             let start: Date = eta.time.getDateFromTime(todayHours.open);
+            if (start.getTime() < new Date().getTime()) {
+                start = new Date();
+            }
             let end: Date = eta.time.getDateFromTime(todayHours.close);
             let sql: string = `
                 INSERT INTO OnlineRoom (letter, date, url)
