@@ -6,6 +6,7 @@ import * as oracledb from "oracledb";
 import * as schedule from "node-schedule";
 
 import { EtaTable } from "../../../lib/update-database/EtaTable";
+import { HelperOracle } from "../../../lib/helpers/HelperOracle";
 
 export class Model implements eta.Model {
 
@@ -50,7 +51,7 @@ export class Model implements eta.Model {
     }
 
     private updateDatabase(callback: () => void, term?: string): void {
-        eta.oracle.getConnection((err: Error, db: oracledb.IConnection) => {
+        HelperOracle.getConnection((err: Error, db: oracledb.IConnection) => {
             if (err) {
                 eta.logger.error("Could not connect to Oracle DB: " + err.message);
                 callback();
