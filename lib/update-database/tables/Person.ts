@@ -64,7 +64,7 @@ export default class Person extends EtaTable {
                     PRSN_UNIV_ID IS NOT NULL AND
                     CLS_INSTR_NM IS NOT NULL AND
                     CLS_INSTR_NTWRK_ID IS NOT NULL`;
-            eta.oracle.queryAll(this.oracleConn, sql, [term], (err: Error, iuProfPersons: eta.Person[]) => {
+            HelperOracle.queryAll(this.oracleConn, sql, [term], (err: Error, iuProfPersons: eta.Person[]) => {
                 if (err) {
                     callback(err);
                     return;
