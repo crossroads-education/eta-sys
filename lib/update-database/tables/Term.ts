@@ -3,6 +3,7 @@ import * as eta from "eta-lib";
 import * as oracledb from "oracledb";
 
 import { EtaTable } from "../EtaTable";
+import { HelperOracle } from "../../helpers/HelperOracle";
 
 export default class Term extends EtaTable {
 
@@ -42,7 +43,7 @@ export default class Term extends EtaTable {
             ) "Term"
             GROUP BY "term", "name", "session"
             ORDER BY "term" ASC, "session" ASC`;
-        eta.oracle.queryAll(this.oracleConn, sql, [], (err: Error, iuTerms: eta.Term[]) => {
+        HelperOracle.queryAll(this.oracleConn, sql, [], (err: Error, iuTerms: eta.Term[]) => {
             if (err) {
                 callback(err);
             } else {

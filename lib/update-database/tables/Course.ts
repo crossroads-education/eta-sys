@@ -3,6 +3,7 @@ import * as eta from "eta-lib";
 import * as oracledb from "oracledb";
 
 import { EtaTable } from "../EtaTable";
+import { HelperOracle } from "../../helpers/HelperOracle";
 
 export default class Course extends EtaTable {
 
@@ -34,7 +35,7 @@ export default class Course extends EtaTable {
             WHERE
                 ACAD_TERM_CD = :term
             ORDER BY "subject" ASC, "number" ASC`;
-        eta.oracle.queryAll(this.oracleConn, sql, [term], (err: Error, iuCourses: eta.Course[]) => {
+        HelperOracle.queryAll(this.oracleConn, sql, [term], (err: Error, iuCourses: eta.Course[]) => {
             if (err) {
                 callback(err);
             } else {

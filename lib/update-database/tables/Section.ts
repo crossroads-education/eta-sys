@@ -3,6 +3,7 @@ import * as eta from "eta-lib";
 import * as oracledb from "oracledb";
 
 import { EtaTable } from "../EtaTable";
+import { HelperOracle } from "../../helpers/HelperOracle";
 
 export default class Section extends EtaTable {
 
@@ -59,7 +60,7 @@ export default class Section extends EtaTable {
             WHERE
                 ACAD_TERM_CD = :term AND
                 INST_CD = 'IUINA'`;
-        eta.oracle.queryAll(this.oracleConn, sql, [term], (err: Error, iuSections: any[]) => {
+        HelperOracle.queryAll(this.oracleConn, sql, [term], (err: Error, iuSections: any[]) => {
             if (err) {
                 callback(err);
             } else {

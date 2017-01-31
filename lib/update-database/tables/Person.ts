@@ -3,6 +3,7 @@ import * as eta from "eta-lib";
 import * as oracledb from "oracledb";
 
 import { EtaTable } from "../EtaTable";
+import { HelperOracle } from "../../helpers/HelperOracle";
 
 export default class Person extends EtaTable {
 
@@ -43,7 +44,7 @@ export default class Person extends EtaTable {
                 PRSN_PRM_LAST_NM IS NOT NULL AND
                 PRSN_PRM_1ST_NM IS NOT NULL AND
                 PRSN_NTWRK_ID IS NOT NULL`;
-        eta.oracle.queryAll(this.oracleConn, sql, [term], (err: Error, iuPersons: eta.Person[]) => {
+        HelperOracle.queryAll(this.oracleConn, sql, [term], (err: Error, iuPersons: eta.Person[]) => {
             if (err) {
                 callback(err);
                 return;

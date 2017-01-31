@@ -3,6 +3,7 @@ import * as eta from "eta-lib";
 import * as oracledb from "oracledb";
 
 import { EtaTable } from "../EtaTable";
+import { HelperOracle } from "../../helpers/HelperOracle";
 
 export default class StudentSection extends EtaTable {
 
@@ -34,7 +35,7 @@ export default class StudentSection extends EtaTable {
                 dss_rds.SR_ENRL_RSTR_BY_PROXY_GT
             WHERE
                 ACAD_TERM_CD = :term`;
-        eta.oracle.queryAll(this.oracleConn, sql, [term], (err: Error, iuStudentSections: any[]) => {
+        HelperOracle.queryAll(this.oracleConn, sql, [term], (err: Error, iuStudentSections: any[]) => {
             if (err) {
                 callback(err);
             } else {

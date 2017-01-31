@@ -2,6 +2,7 @@ import * as eta from "eta-lib";
 
 import * as oracledb from "oracledb";
 
+import { HelperOracle } from "../../helpers/HelperOracle";
 import { EtaTable } from "../EtaTable";
 
 export default class Athlete extends EtaTable {
@@ -27,7 +28,7 @@ export default class Athlete extends EtaTable {
             WHERE
                 STU_GRP_CD LIKE 'RS%' AND
                 INST_CD = 'IUINA'`;
-        eta.oracle.queryAll(this.oracleConn, sql, [], (err: Error, iuAthletes: any[]) => {
+        HelperOracle.queryAll(this.oracleConn, sql, [], (err: Error, iuAthletes: any[]) => {
             if (err) {
                 callback(err);
             } else {
