@@ -13,7 +13,7 @@
   "contributors": [],
   "dependencies": {
     "eta-lib": "git+https://github.com/crossroads-education/eta-lib.git",
-    "node-schedule": "^1.1.1",
+    "node-schedule": "^1.2.0",
     "oracledb": "^1.11.0"
   },
   "engines": {

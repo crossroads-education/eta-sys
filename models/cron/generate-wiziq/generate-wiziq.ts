@@ -38,11 +38,15 @@ export class Model implements eta.Model {
     }
 
     public onScheduleInit(): void {
-        schedule.scheduleJob("0 5 2 * * *", () => {
-            this.generateWizIQRooms(() => {
-                eta.logger.trace("Finished attempt to schedule WizIQ rooms.");
+        if (eta.config.wiziq.use) {
+            schedule.scheduleJob("0 5 2 * * *", () => {
+                this.generateWizIQRooms(() => {
+                    eta.logger.trace("Finished attempt to schedule WizIQ rooms.");
+                });
             });
-        });
+        } else {
+            eta.logger.info("WizIQ is disabled in the config. Not scheduling /sys/cron/generate-wiziq job.");
+        }
     }
 
     public render(req: express.Request, res: express.Response, callback: (env: { [key: string]: any }) => void): void {
